@@ -1,5 +1,5 @@
 class Solution {
-    public static int[] getSumAbsoluteDifferences(int[] nums) {
+    public  int[] getSumAbsoluteDifferences(int[] nums) {
          int n = nums.length;
         int totalSum = 0;
         for ( int num : nums) totalSum += num;
