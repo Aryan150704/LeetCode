@@ -3,7 +3,9 @@ public class Solution extends VersionControl {
         
         int left = 1;
         int right = n;
-
+        if (left == right) {
+            return left;
+        }
         while(left < right) {
             int mid = left + (right - left)/ 2;
 
