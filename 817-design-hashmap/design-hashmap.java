@@ -2,7 +2,7 @@ class MyHashMap {
     private int[] storage;
     public MyHashMap() {
         storage = new int[1000001];
-        Arrays.fill(storage, -1); // Fill the array with -1 to denote empty slots
+        Arrays.fill(storage, -1);
     }
     public void put(int key, int value) {
         storage[key] = value; 
