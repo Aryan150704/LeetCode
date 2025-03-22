@@ -1,17 +1,16 @@
 class NumMatrix {
-    private int[][] SumMatrix;
+    public int[][]arr;
     public NumMatrix(int[][] matrix) {
-        int rows = matrix.length;
-        int cols = matrix[0].length;
-        SumMatrix = new int[rows + 1][cols + 1];
-        for(int i = 0;i < rows;i++) {
-            int prefix = 0;
-            for(int j = 0;j < cols;j++) {
-                prefix += matrix[i][j]; 
-                int above = SumMatrix[i][j+1];
-                SumMatrix[i+1][j+1] = above + prefix;
+        int row=matrix.length;
+        int col=matrix[0].length;
+        arr=new int[row+1][col+1];
+        for(int i=0;i<row;i++){
+            int prefix=0;
+            for(int j=0;j<col;j++){
+                int above=arr[i][j+1];
+                prefix+=matrix[i][j];
+                arr[i+1][j+1]=prefix+above;
             }
-            
         }
     }
     
@@ -20,12 +19,11 @@ class NumMatrix {
         col1++;
         row2++;
         col2++;
-
-        int br = SumMatrix[row2][col2];
-        int ab = SumMatrix[row1 - 1][col2];
-        int lt = SumMatrix[row2][col1 - 1];
-        int tlt = SumMatrix[row1 - 1][col1-1];
-        return br - ab - lt + tlt;
+        int a=arr[row2][col2];
+        int b=arr[row1-1][col2];
+        int c=arr[row2][col1-1];
+        int d=arr[row1-1][col1-1];
+        return a-b-c+d;
     }
 }
 
