@@ -1,6 +1,5 @@
 class Solution {
     public int hIndex(int[] c) {
-        Arrays.sort(c);
         int start=0;
         int end=max(c);
         int ans=1;
