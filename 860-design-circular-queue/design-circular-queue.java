@@ -1,63 +1,60 @@
 class MyCircularQueue {
-    int[] queue;
-    int size;
-    int front;
-    int capacity;
+    static class Node{
+        int data;
+        Node next;
 
+        Node(int data){
+            this.data=data;
+            this.next=null;
+        }
+
+    }
+    Node head, tail;
+    int size=0;
+    int k=0;
     public MyCircularQueue(int k) {
-        this.queue = new int[k];
-        this.size = 0;
-        this.capacity = k;
-        this.front = 0;
+        this.size=k;
     }
-
+    
     public boolean enQueue(int value) {
-        if (isFull())
-            return false;
-        int index = (front + size) % capacity;
-        queue[index] = value;
-        size++;
+        if(isFull()) return false;
+
+        Node newNode = new Node(value);
+        if(head==null){
+            head=newNode;
+            tail=newNode;
+        }
+        else {
+            tail.next=newNode;
+            tail=newNode;
+        }
+        k++;
         return true;
     }
-
+    
     public boolean deQueue() {
-        if (isEmpty())
-            return false;
-        front = (front + 1) % capacity;
-        size--;
+        if(isEmpty()) return false;
+
+        head=head.next;
+        k--;
         return true;
     }
-
+    
     public int Front() {
-         if (isEmpty())
-            return -1;
-        return queue[front];
+        if(isEmpty()) return -1;
+        return head.data;
     }
-
+    
     public int Rear() {
-        if (isEmpty())
-            return -1;
-        int index = (front + size - 1) % capacity;
-        return queue[index];
-
+        if(isEmpty()) return -1;
+        return tail.data;       
     }
-
+    
     public boolean isEmpty() {
-        return size == 0;
+        return head==null;
     }
-
+    
     public boolean isFull() {
-      return size == capacity;
+        return k==size;
     }
 }
-
-/**
- * Your MyCircularQueue object will be instantiated and called as such:
- * MyCircularQueue obj = new MyCircularQueue(k);
- * boolean param_1 = obj.enQueue(value);
- * boolean param_2 = obj.deQueue();
- * int param_3 = obj.Front();
- * int param_4 = obj.Rear();
- * boolean param_5 = obj.isEmpty();
- * boolean param_6 = obj.isFull();
- */
