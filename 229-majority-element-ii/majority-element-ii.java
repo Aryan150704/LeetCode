@@ -29,7 +29,7 @@ class Solution {
             if(el1==nums[i]) cnt1++;
             if(el2==nums[i]) cnt2++;
         }
-        int mini =(n/3)+1;
+        int mini =(int)(n/3)+1;
         if(el1==el2) {
             arr.add(el1);
             return arr;
