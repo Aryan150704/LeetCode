@@ -4,8 +4,8 @@ class Solution {
         
         int cnt1=0;
         int cnt2=0;
-        int el1=0;
-        int el2=0;
+        int el1=Integer.MIN_VALUE;
+        int el2=Integer.MIN_VALUE;
         for(int i=0;i<n;i++){
             if(cnt1==0 && nums[i]!=el2){
                 cnt1=1;
@@ -29,7 +29,7 @@ class Solution {
             if(el1==nums[i]) cnt1++;
             if(el2==nums[i]) cnt2++;
         }
-        int mini =(int)(n/3)+1;
+        int mini =(n/3)+1;
         if(el1==el2) {
             arr.add(el1);
             return arr;
