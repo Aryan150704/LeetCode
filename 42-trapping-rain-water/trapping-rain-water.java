@@ -1,27 +1,30 @@
 class Solution {
     public int trap(int[] height) {
-        if(height.length==0||height.length==1||height.length==2)
-        return 0;
-        int ll[]=new int[height.length];
-        int ml[]=new int[height.length];
-        int sum=0;
-        for(int i=0;i<height.length;i++){
-            if(sum<height[i]){
-                sum=height[i];
+        int ans=0;
+        int str=0;
+        int end=height.length-1;
+        int leftmax=0;
+        int rightmax=0;
+        while(str<end){
+            if(height[str]<=height[end]){
+                if(height[str]>=leftmax){
+                    leftmax=height[str];
+                }
+                else{
+                    ans+=leftmax-height[str];
+                }
+                str++;
             }
-            ll[i]=sum;
-        }
-        sum=0;
-        for(int i=height.length-1;i>=0;i--){
-            if(sum<height[i]){
-                sum=height[i];
+            else{
+                if(height[end]>=rightmax){
+                    rightmax=height[end];
+                }
+                else{
+                    ans+=rightmax-height[end];
+                }
+                end--;
             }
-            ml[i]=sum;
         }
-        sum=0;
-        for(int i=0;i<height.length;i++){
-            sum+=Math.min(ll[i],ml[i])-height[i];
-        }
-        return sum;
+        return ans;
     }
 }
