@@ -1,30 +1,19 @@
 class Solution {
-    public boolean itis(int mid,int[] nums){
-        int count=0;
-        for(int i=0;i<nums.length;i++){
-            if(nums[i]>=mid) count++;
-        }
-        return count==mid;
-    }
     public int specialArray(int[] nums) {
-        Arrays.sort(nums);
-        int l=0;
-        int r=nums.length;
-        while(l<=r){
-            int mid=l+(r-l)/2;
-            if(itis(mid,nums)){
-                return mid;
+        int n=nums.length;
+        int start=0;
+        int end=n;
+        while(start<=end){
+            int mid=(start+end)/2;
+            int cnt=0;
+            for(int i=0;i<n;i++){
+                if(nums[i]>=mid) cnt++;
             }
-            else {
-                int count = 0;
-                for (int num : nums) {
-                    if (num >= mid) count++;
-                }
-                if (count > mid) {
-                    l = mid + 1;
-                } else {
-                    r = mid - 1;
-                }
+            if(mid==cnt) return mid;
+            if(mid>cnt){
+                end=mid-1;
+            }else {
+                start=mid+1;
             }
         }
         return -1;
