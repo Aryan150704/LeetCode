@@ -1,24 +1,41 @@
 class Solution {
+    int[][] grid;
+    int[][] memo;
     public int minFallingPathSum(int[][] matrix) {
-        int n = matrix.length;
-
-        // Start from second-last row up to first row
-        for (int i = n - 2; i >= 0; i--) {
-            for (int j = 0; j < n; j++) {
-                int down = matrix[i + 1][j];
-                int left = (j > 0) ? matrix[i + 1][j - 1] : Integer.MAX_VALUE;
-                int right = (j < n - 1) ? matrix[i + 1][j + 1] : Integer.MAX_VALUE;
-
-                matrix[i][j] += Math.min(down, Math.min(left, right));
-            }
+        grid = matrix;
+        int m = matrix.length, n = matrix[0].length;
+        memo = new int[m][n];
+        
+        for (int i = 0; i < m; i++) {
+            Arrays.fill(memo[i], Integer.MAX_VALUE);
         }
-
-        // Return minimum in the top row
-        int result = Integer.MAX_VALUE;
-        for (int j = 0; j < n; j++) {
-            result = Math.min(result, matrix[0][j]);
+        
+        int ans = Integer.MAX_VALUE;
+        for (int i = 0; i < n; i++) {
+            ans = Math.min(ans, dp(0, i));
         }
-
-        return result;
+        
+        return ans;
+    }
+    
+    int dp(int row, int column) {
+        if (row == grid.length - 1) {
+            return grid[row][column];
+        }
+        
+        if (memo[row][column] != Integer.MAX_VALUE)
+            return memo[row][column];
+        
+        int ans = Integer.MAX_VALUE;
+        ans = Math.min(ans, dp(row + 1, column));
+        
+        if (column > 0)
+            ans = Math.min(ans, dp(row + 1, column - 1));
+        
+        if (column < grid[0].length - 1)
+            ans = Math.min(ans, dp(row + 1, column + 1));
+        
+        memo[row][column] = grid[row][column] + ans;        
+        return memo[row][column];
     }
 }
