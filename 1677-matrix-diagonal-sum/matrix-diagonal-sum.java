@@ -1,22 +1,19 @@
 class Solution {
     public int diagonalSum(int[][] mat) {
-       int i=0;int j=0;
-       int s=0;
-       while(i<mat.length&&j<mat.length){
-        s=s+mat[i][j];
-        i++;
-        j++;
-       } 
-       int k=0;int l=mat[0].length-1;
-       while(k<mat.length&&l>=0){
-        s=s+mat[k][l];
-        k++;
-        l--;
-       }
-       if(mat.length%2==1){
-        int p=mat.length/2;
-        s=s-mat[p][p];
-       }
-       return s;
+        int sum=0;
+        int m=mat.length;
+        int n=mat[0].length;
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(i+j==mat.length-1||i==j) sum+=mat[i][j];
+            }
+        }
+        return sum;
     }
 }
+
+//00 01 02 03 04
+//10 11 12 13 14
+//20 21 22 23 24
+//30 31 32 33 34
+//40 41 42 43 44
