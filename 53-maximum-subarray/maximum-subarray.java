@@ -1,9 +1,5 @@
 class Solution {
-    static{
-        for(int i=1;i<=500;i++){
-            maxSubArray(new int[] {});
-        }
-    }
+    
     public static int maxSubArray(int[] nums) {
         int curr=0;
         int maxSum=Integer.MIN_VALUE;
