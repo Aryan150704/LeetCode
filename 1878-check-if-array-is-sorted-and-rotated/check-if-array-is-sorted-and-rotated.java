@@ -13,7 +13,6 @@ class Solution {
             int dummy=nums[0]; // 1
             for(int m=0;m<nums.length-1;m++){
                 nums[m]=nums[m+1];
-                System.out.print(nums[m]+" "+nums[m+1]+"|");
             }
             nums[nums.length-1]=dummy;
 
