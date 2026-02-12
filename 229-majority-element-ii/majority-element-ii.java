@@ -1,48 +1,49 @@
 class Solution {
     public List<Integer> majorityElement(int[] nums) {
-        if(nums == null) return new ArrayList<>();
-        int n=nums.length;
-        int cnt1=0;
-        int cnt2=0;
-        int el1=Integer.MIN_VALUE;
-        int el2=Integer.MIN_VALUE;
-        for(int i=0;i<n;i++){
-            if(cnt1==0 && nums[i]!=el2){
-                cnt1=1;
-                el1=nums[i];
+        ArrayList<Integer> arr=new ArrayList<>();
+        int t1=Integer.MIN_VALUE;
+        int t2=Integer.MIN_VALUE;
+        int ct1=0;
+        int ct2=0;
+        for(int i=0;i<nums.length;i++){
+            if(ct1==0 && nums[i]!=t2){
+                t1=nums[i];
+                ct1=1;
             }
-            else if(cnt2==0 && nums[i]!=el1){
-                cnt2=1;
-                el2=nums[i];
+            else if (nums[i]==t1){
+                ct1++;
             }
-            else if(el1==nums[i]) cnt1++;
-            else if(el2==nums[i]) cnt2++;
+            else if(ct2==0 && nums[i]!=t1){
+                t2=nums[i];
+                ct2=1;
+            }
+            
+            else if(nums[i]==t2){
+                ct2++;
+            }
             else{
-                cnt1--;
-                cnt2--;
+                ct1--;
+                ct2--;
+            } 
+        }
+        ct1=0;
+        ct2=0;
+        for(int i=0;i<nums.length;i++){
+            if(nums[i]==t1)ct1++;
+            if(nums[i]==t2)ct2++;
+        }
+        if(ct1>nums.length/3 && ct2>nums.length/3){
+            if(t1>t2){
+                arr.add(t2);
+                arr.add(t1);
+            }
+            else{
+                arr.add(t1);
+                arr.add(t2);
             }
         }
-        List<Integer> arr=new ArrayList<>();
-        cnt1=0;
-        cnt2=0;
-        for(int i=0;i<n;i++){
-            if(el1==nums[i]) cnt1++;
-            if(el2==nums[i]) cnt2++;
-        }
-        int mini =(int)(n/3)+1;
-        if(el1==el2) {
-            arr.add(el1);
-            return arr;
-        }
-        if(el2<el1){
-            if(cnt2>=mini) arr.add(el2);
-            if(cnt1>=mini) arr.add(el1);
-        }
-        else{
-            if(cnt1>=mini) arr.add(el1);
-            if(cnt2>=mini) arr.add(el2);
-        }
+        else if(ct1>nums.length/3) arr.add(t1);
+        else if(ct2>nums.length/3) arr.add(t2);
         return arr;
-        
     }
 }
