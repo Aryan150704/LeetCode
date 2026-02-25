@@ -9,24 +9,25 @@ class Solution {
             if((mid==0 && nums[mid]!=nums[mid+1])|| (mid==nums.length-1 && nums[mid]!=nums[mid-1])){
                 return nums[mid];
             }
-            System.out.println(mid);
+            
+            if(nums[mid]!=nums[mid+1] && nums[mid]!=nums[mid-1])return nums[mid];
             if(mid%2==0){
                 if(nums[mid]==nums[mid-1]){
-                    if(nums[mid]!=nums[mid+1] && nums[mid]!=nums[mid-1])return nums[mid];
+                    
                     end=mid-1;
                 }
                 else{
-                    if(nums[mid]!=nums[mid+1] && nums[mid]!=nums[mid-1])return nums[mid];
+                    
                     start=mid+1;
                 }
             }
             else{
                 if(nums[mid]!=nums[mid-1]){
-                    if(nums[mid]!=nums[mid+1] && nums[mid]!=nums[mid-1])return nums[mid];
+                   
                     end=mid-1;
                 }
                 else{
-                    if(nums[mid]!=nums[mid+1] && nums[mid]!=nums[mid-1])return nums[mid];
+                    
                     start=mid+1;
                 }
             }
