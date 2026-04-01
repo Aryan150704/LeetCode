@@ -5,7 +5,12 @@ class Solution {
         for(int i=0;i<s.length();i++){   
             if(s.charAt(i)=='(')counter++;
             else counter--;
-            if(counter>=2 || counter>=1 && s.charAt(i)==')'){
+            if(s.charAt(i)==')'){
+                if(counter>0){
+                    st.append(s.charAt(i));
+                }
+            }
+            else if(counter>1){
                 st.append(s.charAt(i));
             }
         }
