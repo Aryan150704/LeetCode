@@ -10,7 +10,6 @@ class Solution {
             else{
                 if(b.length()>count.length()) count=b;
             }
-            System.out.println(count);
         }
         return count;
     }
