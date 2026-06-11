@@ -29,21 +29,23 @@ class Solution {
         */
         return ans;
     }
-    public boolean checker(int[] arr,int n,int bookey,int flower){
-        int count=0;
-        for(int i=0;i<arr.length;i++){
-            if(i==0 && arr[i]<=n)count++;
-            else if(flower==1 && arr[i]<=n)count++;
-            else if((i!=0)&&(arr[i-1] <= n && arr[i]<=n))count++;
-            else if((i!=0)&&(arr[i-1]>n && arr[i]<=n))count=1;
-            else count=0;
-            if(count==flower){
-                count=0;
-                bookey--;
-            }
+    public boolean checker(int[] arr, int midDay, int targetBouquets, int flowersPerBouquet) {
+    int consecutiveFlowers = 0;
+    int bouquetsMade = 0;
+    
+    for (int i = 0; i < arr.length; i++) {
+        if (arr[i] <= midDay) {
+            consecutiveFlowers++; // Flower has bloomed, increment streak
             
+            if (consecutiveFlowers == flowersPerBouquet) {
+                bouquetsMade++;         // Made a bouquet!
+                consecutiveFlowers = 0; // Reset streak for the next bouquet
+            }
+        } else {
+            consecutiveFlowers = 0; // Streak broken by an unbloomed flower
         }
-        if(bookey<=0)return true;
-        return false;
     }
+    
+    return bouquetsMade >= targetBouquets;
+}
 }
