@@ -1,36 +1,37 @@
 class Solution {
-    public int weightfinder(int mid,int[] weight){
-        int container=0;
-        int count=1;
-        for(int i=0;i<weight.length;i++){
-            if(container+weight[i]<=mid){
-            container+=weight[i];
-            }
-            else{
-                count++;
-                container=weight[i];
-            }
-        }
-        return count;
-    }
     public int shipWithinDays(int[] weights, int days) {
-        int l=0;
-        int r=0;
+        int min=0;
+        int max=0;
+        int ans=-1;
         for(int i=0;i<weights.length;i++){
-            l=Math.max(l,weights[i]);
-            r=r+weights[i];
+            max+=weights[i];
+            min=Math.max(min,weights[i]);
         }
-        int value =0;
-        while(l<=r){
-            int mid=l+(r-l)/2;
-            value=weightfinder(mid,weights);
-            if(value>days){
-                l=mid+1;
+        while(min<=max){
+            int mid=min+(max-min)/2;
+            if(checker(mid,weights,days)){
+                ans=mid;
+                max=mid-1;
             }
             else{
-                r=mid-1;
+                
+                min=mid+1;
             }
-        } 
-        return l;
+        }
+        return ans;
+    }
+    public boolean checker(int m,int arr[],int d){
+        int sum=0;
+        int used=1;
+        for(int i=0;i<arr.length;i++){
+            if((sum+arr[i])>m){
+                used++;
+                sum=arr[i];
+            }
+            else{
+                sum+=arr[i];
+            }
+        }
+        return used<=d;
     }
 }
