@@ -1,19 +1,20 @@
 class Solution {
     public int missingNumber(int[] nums) {
-        int max=Integer.MIN_VALUE;
-        int sum=0;
-        boolean zero=false;
-        for(int i=0;i<nums.length;i++){
-            sum+=nums[i];
-            if(nums[i]==0)zero=true;
-            max=Math.max(max,nums[i]);
+        int totalSum=0;
+        int arraySum=0;
+        int max=0;
+        boolean hasZero=false;
+        int k=1;
+        for(int i:nums){
+            max=Math.max(max,i);
+            if(i==0)hasZero=true;
+            arraySum+=i;
         }
-        if(!zero)return 0;
-        int sum2=0;
-        for(int i=0;i<=max;i++){
-            sum2+=i;
+        for(int i=1;i<=max;i++){
+            totalSum+=i;
         }
-        if(sum==sum2)return max+1;
-        return sum2-sum;
+        if(arraySum==totalSum && hasZero==false)return 0;
+        else if(arraySum==totalSum && hasZero)return max+1;
+        return totalSum-arraySum;
     }
 }
