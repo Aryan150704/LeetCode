@@ -1,26 +1,23 @@
 class Solution {
     public void sortColors(int[] nums) {
-        int start=0;
+        int first=0;
         int mid=0;
-        int end=nums.length-1;
-        while(mid<=end){
-            if(nums[mid]==2){
-                swipee(mid,end,nums);
-                end--;
-            }
-            else if(nums[mid]==0){
-                swipee(mid,start,nums);
+        int last=nums.length-1;
+        while(mid<=last){
+            if(nums[mid]==0){
+                int temp=nums[first];
+                nums[first]=nums[mid];
+                nums[mid]=temp;
                 mid++;
-                start++;
+                first++;
+            }else if(nums[mid]==2){
+                int temp=nums[mid];
+                nums[mid]=nums[last];
+                nums[last]=temp;
+                last--;
             }
-            else{
-                mid++;
-            }
+            else mid++;
+            //System.out.println(nums[first] + " "+ nums[mid]+" "+nums[last]);
         }
     }
-    public static void swipee(int i, int j, int[] arr){
-            int temp=arr[i];
-            arr[i]=arr[j];
-            arr[j]=temp;
-        }
 }
