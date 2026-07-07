@@ -1,21 +1,18 @@
 class Solution {
     public int subarraySum(int[] nums, int k) {
+        HashMap<Integer,Integer> hm=new HashMap<Integer,Integer>();
+        int current=0;
         int count=0;
-
-        int[] pre =new int[nums.length];
-        pre[0]=nums[0];
-        for(int i=1;i<nums.length;i++){
-            pre[i]=nums[i]+pre[i-1];
-        }
-
-        HashMap<Integer,Integer> hm=new HashMap<>();
-
-        for(int j=0;j<nums.length;j++){
-            if(pre[j]==k)count++;
-            int val=pre[j]-k;
-            if(hm.containsKey(val))count+=hm.get(val);
-            hm.put(pre[j],hm.getOrDefault(pre[j],0)+1);
+        for(int i=0;i<nums.length;i++){
+            current+=nums[i];
+            if(current==k)count++;
+            if(hm.containsKey(current-k)){
+                count+=hm.get(current-k);
+            }
+            hm.put(current,hm.getOrDefault(current,0)+1);
         }
         return count;
     }
 }
+
+// in hashmap store frequence 
