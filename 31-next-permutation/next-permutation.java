@@ -7,7 +7,6 @@ class Solution {
                 break;
             }
         }
-        System.out.print(ind);
         if(ind>=0){
             for(int i=nums.length-1;i>=0;i--){
                 if(nums[i]>nums[ind]){
