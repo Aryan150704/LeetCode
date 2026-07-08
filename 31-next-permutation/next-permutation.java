@@ -1,27 +1,23 @@
 class Solution {
     public void nextPermutation(int[] nums) {
-        int i=0;
-        for(i=nums.length-2;i>=0;i--){
+        int ind=-1;
+        for(int i=nums.length-2;i>=0;i--){
             if(nums[i]<nums[i+1]){
-
+                ind=i;
                 break;
             }
         }
-        
-        if(i>=0){
-            for(int j=nums.length-1;j>=0;j--){
-                if(nums[i]<nums[j]){
-                    System.out.println(i+"-"+j);
-                    swap(nums,i,j);
+        System.out.print(ind);
+        if(ind>=0){
+            for(int i=nums.length-1;i>=0;i--){
+                if(nums[i]>nums[ind]){
+                    int temp=nums[ind];
+                    nums[ind]=nums[i];
+                    nums[i]=temp;
                     break;
                 }
             }
         }
-        Arrays.sort(nums,i+1,nums.length);
-    }
-    public static void swap(int[] arr,int i,int j){
-        int temp=arr[i];
-        arr[i]=arr[j];
-        arr[j]=temp;
+        Arrays.sort(nums,ind+1,nums.length);
     }
 }
