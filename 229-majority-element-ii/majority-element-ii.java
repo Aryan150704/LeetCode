@@ -1,49 +1,60 @@
 class Solution {
     public List<Integer> majorityElement(int[] nums) {
-        ArrayList<Integer> arr=new ArrayList<>();
-        int t1=Integer.MIN_VALUE;
-        int t2=Integer.MIN_VALUE;
-        int ct1=0;
-        int ct2=0;
-        for(int i=0;i<nums.length;i++){
-            if(ct1==0 && nums[i]!=t2){
-                t1=nums[i];
-                ct1=1;
-            }
-            else if (nums[i]==t1){
-                ct1++;
-            }
-            else if(ct2==0 && nums[i]!=t1){
-                t2=nums[i];
-                ct2=1;
-            }
-            
-            else if(nums[i]==t2){
-                ct2++;
-            }
-            else{
-                ct1--;
-                ct2--;
+        int t1=Integer.MAX_VALUE;
+        int t2=Integer.MAX_VALUE;
+        int c1=0;
+        int c2=0;
+        List<Integer> ll=new ArrayList<>();
+               
+        for (int n : nums) {
+            if (c1 > 0 && n == t1) {
+                c1++;
             } 
+            else if (c2 > 0 && n == t2) {
+                c2++;
+            } 
+            else if (c1 == 0) {
+                t1 = n;
+                c1 = 1;
+            } 
+            else if (c2 == 0) {
+                t2 = n;
+                c2 = 1;
+            } 
+            else {
+                c1--;
+                c2--;
+            }
         }
-        ct1=0;
-        ct2=0;
-        for(int i=0;i<nums.length;i++){
-            if(nums[i]==t1)ct1++;
-            if(nums[i]==t2)ct2++;
+
+        System.out.print(t1+" "+c1+" "+t2+" "+c2);
+        c1=0;
+        c2=0;
+        for(int n:nums){
+            if(n==t1)c1++;
+            if(n==t2)c2++;
         }
-        if(ct1>nums.length/3 && ct2>nums.length/3){
+       
+        if(c1>nums.length/3 && c2>nums.length/3){
             if(t1>t2){
-                arr.add(t2);
-                arr.add(t1);
+                ll.add(t2);
+                ll.add(t1);
             }
-            else{
-                arr.add(t1);
-                arr.add(t2);
+            else if(t1==t2){
+                ll.add(t1);
+            }
+            else {
+                ll.add(t1);
+                ll.add(t2);
             }
         }
-        else if(ct1>nums.length/3) arr.add(t1);
-        else if(ct2>nums.length/3) arr.add(t2);
-        return arr;
+        else{
+            if(c1>nums.length/3){
+                ll.add(t1);
+            }
+            else if(c2>nums.length/3  && t1 != t2) ll.add(t2);
+            
+        }
+        return ll;
     }
 }
