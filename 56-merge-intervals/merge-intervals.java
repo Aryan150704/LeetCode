@@ -1,29 +1,24 @@
 class Solution {
     public int[][] merge(int[][] intervals) {
-        if (intervals.length <= 1) return intervals;
-
+        List<int[]> ll=new ArrayList<>();
         Arrays.sort(intervals, (a, b) -> Integer.compare(a[0], b[0]));
-
-        List<int[]> result = new ArrayList<>();
-
-        int start = intervals[0][0];
-        int end = intervals[0][1];
-
-        for (int i = 1; i < intervals.length; i++) {
-
-            if (intervals[i][0] <= end) {  
-                // Overlapping
-                end = Math.max(end, intervals[i][1]);
-            } else {  
-                // Non-overlapping
-                result.add(new int[]{start, end});
-                start = intervals[i][0];
-                end = intervals[i][1];
+        int first=intervals[0][0];
+        int last=intervals[0][1];
+        for(int i=1;i<intervals.length;i++){
+            if(last<intervals[i][0]){
+                ll.add(new int[]{first,last});
+                first=intervals[i][0];
+                last=intervals[i][1];
             }
+            else{
+                last = Math.max(last, intervals[i][1]);
+            }
+           System.out.println(i+"-"+first+" "+last);
+            
         }
+        ll.add(new int[]{first,last});
 
-        result.add(new int[]{start, end});
-
-        return result.toArray(new int[result.size()][]);
+            
+        return  ll.toArray(new int[ll.size()][]);
     }
 }
