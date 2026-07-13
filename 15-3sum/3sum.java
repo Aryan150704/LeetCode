@@ -1,32 +1,28 @@
 class Solution {
     public List<List<Integer>> threeSum(int[] nums) {
-        List<List<Integer>> arr=new ArrayList<>();
         Arrays.sort(nums);
-        for(int i=0;i<nums.length-2;i++){
-            if(i>0 && nums[i]==nums[i-1]){
-                continue;
-            }
-            int left=i+1;
-            int right=nums.length-1;
-            while(left<right){
-                int sum=nums[i]+nums[left]+nums[right];
-                if(sum==0){
-                    arr.add(Arrays.asList(nums[i],nums[left],nums[right]));
-                    while(left<right && nums[left]==nums[left+1]) left++;
-                    while(left<right && nums[right]==nums[right-1]) right--;
-                    left++;
-                    right--;
-                }
-                else if(sum<0){
-                    left++;
-                }
-                else {
-                    right--;
-                }
-                
-            }
-
+        List<List<Integer>> l=new ArrayList<>();
+        Map<Integer,Integer> map=new HashMap<>();
+        Set<List<Integer>> set=new HashSet<>();
+        for(int i=0;i<nums.length;i++){
+            map.put(nums[i],i);
         }
-        return arr;
+
+        for(int a=0;a<nums.length;a++){
+            for(int b=a+1;b<nums.length;b++){
+                if(map.containsKey(-1*(nums[a]+nums[b])) && map.get(-1*(nums[a]+nums[b]))>b){
+                    
+                    List<Integer> ll=new ArrayList<>();
+                        ll.add(nums[a]);
+                        ll.add(nums[b]);
+                        ll.add(-1*(nums[a]+nums[b]));
+                        if(!set.contains(ll)){
+                            l.add(ll);
+                            set.add(ll);
+                        }  
+                }
+            }
+        }
+        return l;
     }
-}
+} 
