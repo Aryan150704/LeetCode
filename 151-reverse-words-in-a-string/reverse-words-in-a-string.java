@@ -1,13 +1,32 @@
 class Solution {
     public String reverseWords(String s) {
-        String[] words=s.trim().split("\\s+");
-        StringBuilder std=new StringBuilder();
-        for(int i=words.length-1;i>=0;i--){
-            
-            std.append(words[i]);
-            if(i>0)
-            std.append(" ");
+        s=s.strip();
+        String k="";
+        for(int i=0;i<s.length();i++){
+            if(s.charAt(i)==' '){
+                k+=" ";
+                while(s.charAt(i)==' '){
+                    i++;
+                }
+            }
+            k+=s.charAt(i);
         }
-        return std.toString();
+        s=k;
+        k="";
+        String[] nums=s.split(" ");
+        for(int i=0;i<nums.length/2;i++){
+            String temp=nums[i];
+            nums[i]=nums[nums.length-i-1];
+            nums[nums.length-1-i]=temp;
+        }
+        for(int i=0;i<nums.length;i++){
+            if(i==nums.length-1){
+                k+=nums[i];
+                return k;
+            }
+            k+=nums[i]+" ";
+        }
+        
+        return "";
     }
 }
