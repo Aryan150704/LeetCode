@@ -1,33 +1,35 @@
 class Solution {
     public int myAtoi(String s) {
-        s=s.trim();
         if(s.length()==0)return 0;
-        int m=0;
-        int sign=1;
-        if(s.charAt(m)=='-' || s.charAt(m)=='+'){
-            if(s.charAt(m)=='-')
-            sign=-1;
-            else sign=1;
-            m++;
+        int k=0;
+        boolean isNeg=false;
+        StringBuilder ss=new StringBuilder();
+        while(k<s.length() && s.charAt(k)==' '){
+            k++;
         }
-        while(m<s.length() && s.charAt(m)=='0' ){
-            m++;
+        if(k<s.length() && (s.charAt(k)=='+' || s.charAt(k)=='-')){
+            if(s.charAt(k)=='-') isNeg=true;
+            k++;
         }
         
-        long ans=0;
-        while(m<s.length()){
-            long num=s.charAt(m)-'0';
-            if((num<0 || num >9 )) break;
-            ans=ans*10+num;
-
-            if(ans>Integer.MAX_VALUE || ans<Integer.MIN_VALUE){
-                if(sign ==-1) return Integer.MIN_VALUE;
-                else  return Integer.MAX_VALUE;
-            }
-                
-
-            m++;
+        while(k<s.length() && s.charAt(k)-'0'<10 && s.charAt(k)-'0'>=0){
+            ss.append(s.charAt(k));
+            k++;
         }
-        return (int)ans *sign;
+        s=ss.toString();
+
+        k=0;
+        long ans=0;
+        while(k<s.length()){
+            ans=ans*10+s.charAt(k)-'0';
+            k++;
+            if (!isNeg && ans > Integer.MAX_VALUE)
+                return Integer.MAX_VALUE;
+
+            if (isNeg && -ans < Integer.MIN_VALUE)
+                return Integer.MIN_VALUE;
+        }
+        if(isNeg)return (int)ans*-1;
+        return (int)ans;
     }
 }
