@@ -1,23 +1,33 @@
 class Solution {
     public String frequencySort(String s) {
-        int[] arr=new int[126];
-        int high=0;
-        for(int i=0;i<s.length();i++){
-            arr[((int)s.charAt(i))]+=1;
-            high=Math.max(high,arr[((int)s.charAt(i))]);
+        int n=s.length();
+        int max=0;
+        StringBuilder ans=new StringBuilder();
+        int[] arr=new int[256];
+        for(int i=0;i<n;i++){
+            int k=s.charAt(i)-'0';
+            arr[k]+=1;
+            max=Math.max(max,arr[k]);
+            //System.out.println(s.charAt(i)+" "+k+" "+arr[k] +" "+max);
         }
-        StringBuilder sb=new StringBuilder();
-        for(int j=high;j>0;j--){
-            for(int i=0;i<126;i++){
-                if(arr[i]==j){
-                    while(arr[i]>0){
-                        sb.append((char)(i));
-                        arr[i]--;
-                    }
+        //System.out.println(max);
+        while(max>0){
+            for(int i=arr.length-1;i>=0;i--){
+            //System.out.println(arr[i]+" "+max);
+            if(arr[i]==max){
+                int k=max;
+                while(k>0){
+                    ans.append((char)(i+'0'));
+                    //System.out.println((char)(i+k));
+                    k--;
                 }
             }
+            }
+            max--;
+            
         }
         
-        return sb.toString();
+
+        return ans.toString();
     }
 }
