@@ -1,38 +1,47 @@
 class Solution {
-    public void finding(int[] nums,int mid,int[] arr){
-        int first=mid;
-        int last=mid;
-        while(first>=0 && arr[first]==arr[mid]){
-            first--;
-        }
-         while(last<arr.length && arr[last]==arr[mid]){
-            last++;
-        }
-        nums[0]=first+1;
-        nums[1]=last-1;
-        
-    }
     public int[] searchRange(int[] nums, int target) {
+        int firstPos=-1;
+        int lastPos=-1;
+        if(nums.length==0)return new int[]{firstPos,lastPos};
+        // finding first
         int low=0;
         int high=nums.length-1;
-        int[] arr=new int[2];
-        if(nums.length==1 && target==nums[0]) {
-            arr[0]=0;
-            arr[1]=0;
-            return arr;
-        }
-           
-        arr[0]=-1;
-        arr[1]=-1;
         while(low<=high){
             int mid=low+(high-low)/2;
             if(nums[mid]==target){
-             finding(arr,mid, nums);
-             break;
+                firstPos=mid;
+                if(mid!=0 && nums[mid-1]==nums[mid]){
+                    high=mid-1;
+                }
+                else break;
             }
-            else if(nums[mid]>target) high=mid-1;
-            else low=mid+1;
+            else if(nums[mid]>target){
+                high=mid-1;
+            }
+            else{
+                low=mid+1;
+            }
         }
-        return arr;
+        //finding last
+        low=0;
+        high=nums.length-1;
+        while(low<=high){
+        int mid=low+(high-low)/2;
+            if(nums[mid]==target){
+                lastPos=mid;
+                if(mid!=nums.length-1 && nums[mid+1]==nums[mid]){
+                    low=mid+1;
+                }
+                else break;
+            }
+            else if(nums[mid]>target){
+                high=mid-1;
+            }
+            else{
+                low=mid+1;
+            }
+        }
+
+        return new int[]{firstPos,lastPos};
     }
 }
