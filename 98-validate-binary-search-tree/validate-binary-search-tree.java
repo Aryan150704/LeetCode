@@ -14,18 +14,13 @@
  * }
  */
 class Solution {
+    private Integer prev=null;
     public boolean isValidBST(TreeNode root) {
-        List<Integer> ls=new ArrayList<>();
-        iot(ls,root);
-        for(int i=1;i<ls.size();i++){
-            if(ls.get(i)<=ls.get(i-1))return false;
-        }
-        return true;
+        if(root==null)return true;
+        if(!isValidBST(root.left))return false;
+        if(prev!=null && root.val<=prev)return false;
+        prev=root.val;
+        return isValidBST(root.right);
     }
-    private void iot(List<Integer> ls,TreeNode root){
-        if(root==null)return ;
-        iot(ls,root.left);
-        ls.add(root.val);
-        iot(ls,root.right);
-    }
+    
 }
