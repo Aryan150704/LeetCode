@@ -1,41 +1,22 @@
 class Solution {
-    int[][] grid;
-    int[][] memo;
     public int minFallingPathSum(int[][] matrix) {
-        grid = matrix;
-        int m = matrix.length, n = matrix[0].length;
-        memo = new int[m][n];
-        
-        for (int i = 0; i < m; i++) {
-            Arrays.fill(memo[i], Integer.MAX_VALUE);
+        Integer[][] dp=new Integer[matrix.length][matrix[0].length];
+        int min=Integer.MAX_VALUE;
+        for(int i=0;i<matrix[0].length;i++){
+            min=Math.min(min,min(matrix,dp,0,i));
         }
-        
-        int ans = Integer.MAX_VALUE;
-        for (int i = 0; i < n; i++) {
-            ans = Math.min(ans, dp(0, i));
-        }
-        
-        return ans;
+        return min;
     }
-    
-    int dp(int row, int column) {
-        if (row == grid.length - 1) {
-            return grid[row][column];
+    public int min(int[][] matrix,Integer[][] dp,int i,int j){
+        if(i<0 || j<0 || i>matrix.length-1||j>matrix[0].length-1)return  100000000;
+        if(i==matrix.length-1 ){
+            return matrix[i][j];
         }
-        
-        if (memo[row][column] != Integer.MAX_VALUE)
-            return memo[row][column];
-        
-        int ans = Integer.MAX_VALUE;
-        ans = Math.min(ans, dp(row + 1, column));
-        
-        if (column > 0)
-            ans = Math.min(ans, dp(row + 1, column - 1));
-        
-        if (column < grid[0].length - 1)
-            ans = Math.min(ans, dp(row + 1, column + 1));
-        
-        memo[row][column] = grid[row][column] + ans;        
-        return memo[row][column];
+        if(dp[i][j]!=null) return dp[i][j];
+        int left=min(matrix,dp,i+1,j-1);
+        int mid=min(matrix,dp,i+1,j);
+        int right=min(matrix,dp,i+1,j+1);
+        dp[i][j]=Math.min(mid,Math.min(left,right))+matrix[i][j];
+        return dp[i][j];
     }
-}
+}   
