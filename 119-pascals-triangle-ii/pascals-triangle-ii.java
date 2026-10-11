@@ -1,15 +1,25 @@
 class Solution {
-    public List<Integer> getRow(int row) {
-        List<Integer> elements = new ArrayList<>();
-        long value = 1;
-        elements.add((int)value);
-
-        for(int col = 1; col <= row ; col++){
-            value *= (row-col+1);
-            value /= col;
-            elements.add((int)value);
+    public List<Integer> getRow(int numRows) {
+        List<List<Integer>> l=new ArrayList<>();
+        List<Integer> ans=new ArrayList<>();
+        int count=1;
+        while(count<=numRows+1){
+            List<Integer> ll=new ArrayList<Integer>();
+            for(int i=0;i<count;i++){
+                if(i==0){
+                    ll.add(1);
+                }
+                else if(i==count-1){
+                    ll.add(1);
+                }
+                else{
+                    ll.add( l.get(count-2).get(i) + l.get(count-2).get(i-1) );
+                }
+            }
+            if(count==numRows+1)return ll;
+            l.add(ll);
+            count++;
         }
-
-        return elements;
+        return ans;
     }
 }
