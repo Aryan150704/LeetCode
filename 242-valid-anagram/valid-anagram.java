@@ -5,12 +5,11 @@ class Solution {
         for(int i=0;i<s.length();i++){
             arr[s.charAt(i)-'a']+=1;
         }
-        for(int i=0;i<s.length();i++){
+        for(int i=0;i<t.length();i++){
             arr[t.charAt(i)-'a']-=1;
         }
         for(int i=0;i<arr.length;i++){
             if(arr[i]!=0)return false;
-            System.out.print(arr[i]);
         }
         return true;
     }
